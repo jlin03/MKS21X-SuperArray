@@ -25,22 +25,36 @@ public class SuperArray {
     return size;
   }
 
+  public void updateSize() {
+    int count = 0;
+    for(int i = 0; i < data.length; i++) {
+      if(data[i] == null) {
+        return count;
+      }
+      count += 1;
+    }
+  }
+
   public boolean isEmpty() {
     return(size == 0);
   }
 
   public boolean add(String a) {
-    if(size == data.length) {
+    if(size < data.length) {
       data[size] = a;
+      updateSize();
       return true;
     }
     else {
-      return false;
+      resize();
+      data[size] = a;
+      updateSize();
+      return true;
     }
   }
 
   public String get(int x) {
-    if (x >= 0 && x < data.length) {
+    if (x >= 0 && x < size) {
       return data[x];
     }
     else {
@@ -49,7 +63,7 @@ public class SuperArray {
   }
 
   public String set(int x, String a) {
-    if (x >= 0 && x < data.length) {
+    if (x >= 0 && x < size) {
       data[x] = a;
         return "Successfully set";
     }
@@ -59,14 +73,16 @@ public class SuperArray {
   }
 
   private void resize() {
-    String[] oldArray = new String[data.length + 10];
+    String[] oldArray = new String[data.length * 2 + 1];
     for(int i = 0; i < data.length; i++) {
       oldArray[i] = data[i];
     }
-    String[] data = new String[data.length + 10];
     data = oldArray;
-
   }
+
+  
+
+
 
 
 
