@@ -4,6 +4,7 @@ public class SuperArray {
 
   public SuperArray() {
     data = new String[10];
+	size = 0;
   }
 
   public String toString() {
@@ -24,14 +25,54 @@ public class SuperArray {
   public int size() {
     return size;
   }
+  
+  public String get(int x) {
+    if (x >= 0 && x < size) {
+      return data[x];
+    }
+    else {
+      return null;
+    }
+  }
+  
+  int indexOf(String a) {
+	  int index = -1;
+	  for(int i = 0; i < size; i++) {
+		  if(data[i].equals(a)) {
+			  index = i;
+		  }
+	  }
+	  return index; 
+  }
+  
+  int lastIndexOf(String a) {
+	  int index = -1;
+	  for(int i = size - 1; i >= 0; i++) {
+		  if(data[i].equals(a)) {
+			  index = i;
+		  }
+	  }
+	  return index; 
+  }
+  
+  public boolean contains(String a) {
+	  for(int i = 0; i < size; i++) {
+		  if(data[i].equals(a)) {
+			  return true;
+		  }
+	  }
+	  return false;
+  }  
 
   public void updateSize() {
     int count = 0;
     for(int i = 0; i < data.length; i++) {
-      if(data[i] == null) {
-        return count;
+      if(data[i] == null || i == data.length - 1) {
+		size = count;
       }
-      count += 1;
+	  else {
+		count += 1;
+	  }
     }
   }
 
@@ -52,24 +93,65 @@ public class SuperArray {
       return true;
     }
   }
-
-  public String get(int x) {
+  
+  public void add(int index,String a) {
+	  if(index >= 0 && index < size) {
+		if(size < data.length) {
+			for(int i = data.length - 1; i > index; i--) {
+				data[i] = data[i-1];
+			}
+			data[index] = a;
+			updateSize();
+		}
+		else {
+			resize();
+			this.add(index,a);
+		} 
+	  }
+	  else {
+		  System.out.println("Error");
+	 }
+  }
+ 
+  public String set(int x, String a) {
     if (x >= 0 && x < size) {
-      return data[x];
+      data[x] = a;
+	  updateSize();
+      return "Successfully set";
     }
     else {
       return null;
     }
   }
-
-  public String set(int x, String a) {
-    if (x >= 0 && x < size) {
-      data[x] = a;
-        return "Successfully set";
-    }
-    else {
-      return null;
-    }
+  
+  public String remove(int index) {
+	  if(index >= 0 && index < size) {
+		  for(int i = index; i < size - 1; i++) {
+			  data[i] = data[i+1];
+		  }
+		  data[size] = null;
+		  updateSize();
+		  return "Successfully removed";
+	  }
+	  else {
+		  return null;
+	  }
+  }
+  
+  public boolean remove(String a) {
+	  int index = -1;
+	  for(int i = 0; i < size; i++) {
+		  if(data[i].equals(a)) {
+			  index = i;
+		  }
+	  }
+	  if(index != -1) {
+		  this.remove(index);
+		  return true;
+	  }
+	  else {
+		  return false;
+	  }
   }
 
   private void resize() {
@@ -79,15 +161,5 @@ public class SuperArray {
     }
     data = oldArray;
   }
-
-  
-
-
-
-
-
-
-
-
 
 }
