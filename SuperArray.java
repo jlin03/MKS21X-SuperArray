@@ -40,6 +40,7 @@ public class SuperArray {
 	  for(int i = 0; i < size; i++) {
 		  if(data[i].equals(a)) {
 			  index = i;
+			  break;
 		  }
 	  }
 	  return index; 
@@ -47,9 +48,10 @@ public class SuperArray {
   
   int lastIndexOf(String a) {
 	  int index = -1;
-	  for(int i = size - 1; i >= 0; i++) {
+	  for(int i = size - 1; i >= 0; i--) {
 		  if(data[i].equals(a)) {
 			  index = i;
+			  break;
 		  }
 	  }
 	  return index; 
@@ -67,13 +69,14 @@ public class SuperArray {
   public void updateSize() {
     int count = 0;
     for(int i = 0; i < data.length; i++) {
-      if(data[i] == null || i == data.length - 1) {
-		size = count;
+      if(data[i] == null) {
+		break;
       }
 	  else {
 		count += 1;
 	  }
     }
+	size = count;
   }
 
   public boolean isEmpty() {
@@ -126,10 +129,10 @@ public class SuperArray {
   
   public String remove(int index) {
 	  if(index >= 0 && index < size) {
-		  for(int i = index; i < size - 1; i++) {
+		  for(int i = index; i < data.length - 1; i++) {
 			  data[i] = data[i+1];
 		  }
-		  data[size] = null;
+		  data[data.length - 1] = null;
 		  updateSize();
 		  return "Successfully removed";
 	  }
@@ -155,11 +158,11 @@ public class SuperArray {
   }
 
   private void resize() {
-    String[] oldArray = new String[data.length * 2 + 1];
+    String[] newArray = new String[data.length * 2];
     for(int i = 0; i < data.length; i++) {
-      oldArray[i] = data[i];
+      newArray[i] = data[i];
     }
-    data = oldArray;
+    data = newArray;
   }
 
 }
