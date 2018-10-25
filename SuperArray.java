@@ -25,7 +25,7 @@ public class SuperArray {
   public int size() {
     return size;
   }
-  
+
   public String get(int x) {
     if (x >= 0 && x < size) {
       return data[x];
@@ -34,7 +34,7 @@ public class SuperArray {
       return null;
     }
   }
-  
+
   int indexOf(String a) {
 	  int index = -1;
 	  for(int i = 0; i < size; i++) {
@@ -43,9 +43,9 @@ public class SuperArray {
 			  break;
 		  }
 	  }
-	  return index; 
+	  return index;
   }
-  
+
   int lastIndexOf(String a) {
 	  int index = -1;
 	  for(int i = size - 1; i >= 0; i--) {
@@ -54,9 +54,9 @@ public class SuperArray {
 			  break;
 		  }
 	  }
-	  return index; 
+	  return index;
   }
-  
+
   public boolean contains(String a) {
 	  for(int i = 0; i < size; i++) {
 		  if(data[i].equals(a)) {
@@ -64,7 +64,7 @@ public class SuperArray {
 		  }
 	  }
 	  return false;
-  }  
+  }
 
   public void updateSize() {
     int count = 0;
@@ -96,7 +96,7 @@ public class SuperArray {
       return true;
     }
   }
-  
+
   public void add(int index,String a) {
 	  if(index >= 0 && index < size) {
 		if(size < data.length) {
@@ -109,13 +109,13 @@ public class SuperArray {
 		else {
 			resize();
 			this.add(index,a);
-		} 
+		}
 	  }
 	  else {
 		  System.out.println("Error");
 	 }
   }
- 
+
   public String set(int x, String a) {
     if (x >= 0 && x < size) {
       data[x] = a;
@@ -126,7 +126,7 @@ public class SuperArray {
       return null;
     }
   }
-  
+
   public String remove(int index) {
 	  if(index >= 0 && index < size) {
 		  for(int i = index; i < data.length - 1; i++) {
@@ -140,7 +140,7 @@ public class SuperArray {
 		  return null;
 	  }
   }
-  
+
   public boolean remove(String a) {
 	  int index = -1;
 	  for(int i = 0; i < size; i++) {
