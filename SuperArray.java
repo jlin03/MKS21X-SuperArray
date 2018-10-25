@@ -84,7 +84,7 @@ public class SuperArray {
   }
 
   public boolean add(String a) {
-    if(size < data.length) {
+    if(size < data.length && a != null) {
       data[size] = a;
       updateSize();
       return true;
@@ -98,7 +98,7 @@ public class SuperArray {
   }
 
   public void add(int index,String a) {
-	  if(index >= 0 && index < size) {
+	  if(index >= 0 && index < size && a != null) {
 		if(size < data.length) {
 			for(int i = data.length - 1; i > index; i--) {
 				data[i] = data[i-1];
@@ -117,7 +117,7 @@ public class SuperArray {
   }
 
   public String set(int x, String a) {
-    if (x >= 0 && x < size) {
+    if (x >= 0 && x < size && a != null) {
       data[x] = a;
 	  updateSize();
       return "Successfully set";
