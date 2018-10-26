@@ -27,10 +27,12 @@ public class SuperArray {
   }
 
   public String get(int x) {
-    if (x >= 0 && x < size) {
+    try {
+      indexCheck(x);
       return data[x];
     }
-    else {
+    catch(IndexOutOfBoundsException e) {
+      System.out.println("Caught an error in get");
       return null;
     }
   }
@@ -98,37 +100,44 @@ public class SuperArray {
   }
 
   public void add(int index,String a) {
-	  if(index >= 0 && index < size && a != null) {
-		if(size < data.length) {
-			for(int i = data.length - 1; i > index; i--) {
-				data[i] = data[i-1];
-			}
-			data[index] = a;
-			updateSize();
-		}
-		else {
-			resize();
-			this.add(index,a);
-		}
-	  }
-	  else {
-		  System.out.println("Error");
-	 }
+    try {
+        indexCheck(index);
+        nullCheck(a);
+
+		    if(size < data.length) {
+			       for(int i = data.length - 1; i > index; i--) {
+				           data[i] = data[i-1];
+			       }
+			       data[index] = a;
+			       updateSize();
+		    }
+		    else {
+			       resize();
+			       this.add(index,a);
+		    }
+    }
+    catch(IndexOutOfBoundsException | IllegalArgumentException e) {
+      System.out.println("Caught an error in add");
+    }
   }
 
   public String set(int x, String a) {
-    if (x >= 0 && x < size && a != null) {
+    try {
+      indexCheck(x);
+      nullCheck(a);
       data[x] = a;
-	  updateSize();
+	    updateSize();
       return "Successfully set";
     }
-    else {
+    catch(IndexOutOfBoundsException | IllegalArgumentException e) {
+      System.out.println("Caught an error in set");
       return null;
     }
   }
 
   public String remove(int index) {
-	  if(index >= 0 && index < size) {
+	  try {
+      indexCheck(index);
 		  for(int i = index; i < data.length - 1; i++) {
 			  data[i] = data[i+1];
 		  }
@@ -136,7 +145,8 @@ public class SuperArray {
 		  updateSize();
 		  return "Successfully removed";
 	  }
-	  else {
+	  catch(IndexOutOfBoundsException e) {
+      System.out.println("Caught an error in remove");
 		  return null;
 	  }
   }
@@ -163,6 +173,18 @@ public class SuperArray {
       newArray[i] = data[i];
     }
     data = newArray;
+  }
+
+  public void nullCheck(String a) {
+    if(a == null) {
+      throw new IllegalArgumentException();
+    }
+  }
+
+  public void indexCheck(int index) {
+    if(index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException();
+    }
   }
 
 }
