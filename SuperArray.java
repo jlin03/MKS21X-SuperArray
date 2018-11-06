@@ -8,16 +8,22 @@ public class SuperArray {
   }
   
   public SuperArray(int initial) {
+	  if(initial < 0) {
+		  throw new IllegalArgumentException();
+	  }
 	  data = new String[initial];
 	  size = 0;
   }
 
   public String toString() {
     String out = "[";
-    for(int i = 0; i < data.length - 1;i++) {
+    for(int i = 0; i < size - 1;i++) {
       out += data[i] + ",";
     }
-    out += data[data.length - 1] + "]";
+	if(size > 0) {
+		out += data[size - 1];
+	}
+    out += "]";
     return out;
   }
 
@@ -25,6 +31,7 @@ public class SuperArray {
     for(int i = 0; i < data.length;i++) {
       data[i] = null;
     }
+	updateSize();
   }
 
   public int size() {
@@ -37,7 +44,7 @@ public class SuperArray {
       return data[x];
     }
     catch(IndexOutOfBoundsException e) {
-      System.out.println("Caught an error in get");
+      //System.out.println("Caught an error in get");
       return null;
     }
   }
@@ -122,7 +129,7 @@ public class SuperArray {
 		    }
     }
     catch(IndexOutOfBoundsException | IllegalArgumentException e) {
-      System.out.println("Caught an error in add");
+      //System.out.println("Caught an error in add");
     }
   }
 
@@ -135,23 +142,24 @@ public class SuperArray {
       return "Successfully set";
     }
     catch(IndexOutOfBoundsException | IllegalArgumentException e) {
-      System.out.println("Caught an error in set");
+      //System.out.println("Caught an error in set");
       return null;
     }
   }
 
   public String remove(int index) {
 	  try {
-      indexCheck(index);
-		  for(int i = index; i < data.length - 1; i++) {
+		indexCheck(index);
+		String x = data[index];
+		  for(int i = index; i < size - 1; i++) {
 			  data[i] = data[i+1];
 		  }
-		  data[data.length - 1] = null;
+		  data[size - 1] = null;
 		  updateSize();
-		  return "Successfully removed";
+		  return x;
 	  }
 	  catch(IndexOutOfBoundsException e) {
-      System.out.println("Caught an error in remove");
+      //System.out.println("Caught an error in remove");
 		  return null;
 	  }
   }
